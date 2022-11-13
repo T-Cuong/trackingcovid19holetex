@@ -13,7 +13,7 @@ theme vao function va tra ve mot obj */
   },
 }));
 
-export default function CountrySelector({ countries, handleOnChange, value }) {
+export default function CountrySelector({ countries, handleOnChange, value }) {//nhan cac gia tri  countries, handleOnChange, value tu App.js
   const classes = useStyles();
 
   return (
@@ -23,7 +23,7 @@ export default function CountrySelector({ countries, handleOnChange, value }) {
       </InputLabel>
       <NativeSelect
         value={value}//value duoc truyen tu App.js
-        onChange={handleOnChange}
+        onChange={handleOnChange}//khi chon 1 gia tri trong option event onchange se xay ra
         inputProps={{
           name: 'country',
           id: 'country-selector',

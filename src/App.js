@@ -9,7 +9,7 @@ import '@fontsource/roboto';
 import moment from 'moment';
 import 'moment/locale/vi';
 
-moment.locale('vi');//set formatLL phía duoi theo tieng viet
+moment.locale('vi');//set format phia duoi theo tieng viet
 
 const App = () => {
   const [countries, setCountries] = React.useState([]);//khai bao state de luu tru du lieu ve country duoc tra ve tu api
@@ -26,7 +26,7 @@ const App = () => {
     });
   }, []);//chung ta chi muon viec goi api duoc thuc hien mot lan khi component render lan dau tien de lay ra danh sach cac quoc gia nen ta de mot empty array o do
 
-  const handleOnChange = React.useCallback((e) => {//khi nguoi dung lua chon 1 country nao do thi function nay duoc thuc thi
+  const handleOnChange = React.useCallback((e) => {//khi nguoi dung lua chon 1 country nao do thi function nay duoc thuc thi(), nay duoc truyen vao fucntion countryselector trong App.js
     setSelectedCountryId(e.target.value);//setSelectedCountryId voi gia tri ma nguoi dung dang lua chon
   }, []);
 
@@ -38,7 +38,7 @@ const App = () => {
       //call api
       getReportByCountry(selectedCountry.Slug).then((res) => {//getReportByCountry la mot method trong apis/index.js no dung axios nen o day can then de lay ra gia tri tra ve tu api
         console.log('getReportByCountry', { res });//in ra gia tri tra ve tu api     
-        res.data.pop();// remove item cuoi cung cua arr res.data ma tra ve tu api
+        res.data.pop();// remove item cuoi cung cua arr res.data ma tra ve tu api (boi vi day la du lieu ve ngay nhung no ko dung )
         setReport(res.data);//cap nhat data vao setReport
       });
     }
@@ -46,12 +46,12 @@ const App = () => {
 
   const summary = useMemo(() => {
     if (report && report.length) {
-      const latestData = report[report.length - 1];
+      const latestData = report[report.length - 1];//latestData la du lieu cua ngay cuoi cung va lay ra phan tu cuoi cung bang cach report[report.length - 1]
       return [
         {
           title: 'Số ca nhiễm',
           count: latestData.Confirmed,
-          type: 'confirmed',
+          type: 'confirmed',//dua tren type de tao ra cac ma mau tuong ung, so ca nhiem mau do, so ca khoi mau xanh, so ca tu vong mau xam 
         },
         {
           title: 'Khỏi',
@@ -78,7 +78,7 @@ const App = () => {
       <CountrySelector
         handleOnChange={handleOnChange}//truyen state handleOnChange vao countryselector thong qua props co ten handleOnChange
         countries={countries}//truyen state counstries vao countryselector thong qua props co ten la countries
-        value={selectedCountryId}//truyen prop la quoc gia duoc chon vao CountrySelector
+        value={selectedCountryId}//truyen prop la quoc gia duoc chon vao CountrySelector, va mac dinh la thang nay co gia trị vn
       />
       <Highlight summary={summary} /> {/**truyen prop summaray vao trong component Highlight de render rac cac du lieu hien thi len ui*/}
       <Summary countryId={selectedCountryId} report={report} />{/**truyen prop selectedCountryId va report vao Summary component */}

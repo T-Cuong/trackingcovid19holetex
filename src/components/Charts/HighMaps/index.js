@@ -5,7 +5,7 @@ import highchartsMap from 'highcharts/modules/map';
 import { cloneDeep } from 'lodash';
 
 // Load Highcharts modules
-highchartsMap(Highcharts);//su dung Highcharts trong highchartsMap
+highchartsMap(Highcharts);//de dung map trong hightchart react ta lam nhu nay
 
 const initOptions = {//css
   chart: {
@@ -20,7 +20,7 @@ const initOptions = {//css
   colorAxis: {
     min: 0,
     stops: [
-      [0.2, '#FFC4AA'], //doi voi cac gia tri tu 0 -> 0.2 thi co ma mau FFC4AA
+      [0.2, '#FFC4AA'], //doi voi cac gia tri tu 0 -> 0.2 thi co ma mau FFC4AA, moi tinh co 1 ma mau khac nha la nho cai nay
       [0.4, '#FF8A66'],
       [0.6, '#FF392B'],
       [0.8, '#B71525'],
@@ -52,9 +52,10 @@ const HighMaps = ({ mapData }) => {//mapdata la obj json tuong ung voi tung nuoc
     va kiem tra xem trong obj co keys nao hay ko  */
       console.log({ mapData });
       const fakeData = mapData.features.map((feature, index) => ({//vi ko co du lieu cho tung tinh nen ta tao ra 1 fake data
-        /**dau tien ta map qua fetures trong mapData, trong function nay co 2 tham so 1 la feature 2 la index
+        /**features chua ta ca cac tinh cua mot quoc gia 
+         * dau tien ta map qua fetures trong mapData de tao ra cac data gia cho tung tinh, trong function nay co 2 tham so 1 la feature 2 la index
          * tung data se co 1 cap key va value */ 
-        key: feature.properties['hc-key'],//ta lay gia tri cua key tu hc-key trong feature -> properties
+        key: feature.properties['hc-key'],//ta lay gia tri cua key tu hc-key trong feature -> properties lam key 
         value: index,//gia tri nay la index tron arr ta map phia tren
       }));
 

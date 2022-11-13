@@ -5,7 +5,7 @@ import moment from 'moment';
 import { Button, ButtonGroup } from '@material-ui/core';
 
 const generateOptions = (data) => {//
-  const categories = data.map((item) => moment(item.Date).format('DD/MM/YYYY'));//lay ra 1 arr va tung item cua arr chinh date (date lay bang cach map qua data)
+  const categories = data.map((item) => moment(item.Date).format('DD/MM/YYYY'));//map qua data tra ve item.Date, moment de format dang du lieu, boc item.Date vao 1 moment va format no
 //boc date vao moment va format no theo form DD/MM/YYYY
   return {
     chart: {//set chieu cao cho line chart 
@@ -65,10 +65,10 @@ export default function LineChart({ data }) {//data la du lieu truyen component 
         customData = data;
         break;
       case '30':
-        customData = data.slice(Math.max(data.length - 30, 1));//fill ra du lieu cua 30 ngay gan nhat
+        customData = data.slice(Math.max(data.length - 30, 1));//fill ra du lieu cua 30 ngay gan nhat, cat tu item thu data.length -30 den item thu 1
         break;
       case '7':
-        customData = data.slice(Math.max(data.length - 7, 1));//fill ra du lieu cua 7 ngay gan nhat
+        customData = data.slice(Math.max(data.length - 7, 1));//fill ra du lieu cua 7 ngay gan nhat, cat tu item thu data.length -7 den 1
         break;
 
       default:
@@ -77,21 +77,21 @@ export default function LineChart({ data }) {//data la du lieu truyen component 
     }
 
     setOptions(generateOptions(customData));//truyen vao setOption mot tham so la customData cua generateOptions
-  }, [data, reportType]);//khi data hay reportType co thay doi thi useEffect re render lai
+  }, [data, reportType]);//khi data hay reportType co thay doi thi useEffect re render lai de dua ra option tuong ung voi reporttype dang lua chon
 
   return (
     <>
       <ButtonGroup
-      //ButtonGroup den tu marterialUI
+      //ButtonGroup den tu marterialUI, day la doan thiet ke giao din cho button all, 30 ngay, 7 ngay
         size='small'
         aria-label='small outlined button group'
         style={{
           display: 'flex',
-          justifyContent: 'flex-end',//de di chuyen cac button chua tron no sang phia ben phai
+          justifyContent: 'flex-end',//de di chuyen cac button sang phia ben phai
         }}
       >
         <Button
-          color={reportType === 'all' ? 'secondary' : ''}//reportType la 1 attribute, ta xem no co = voi gia tri all hay ko, neu = ta cho no co mau secondary( mau dc dinh nghia boi marterialUi mac dinh la mau do)
+          color={reportType === 'all' ? 'secondary' : ''}//reportType la 1 attribute, ta xem no co = voi gia tri all hay ko, neu = ta cho no co mau secondary( day la mau dc dinh nghia boi marterialUi mac dinh la mau do)
           onClick={() => setReportType('all')}//khi click vao thi ta tien hanh set lai reportType
         >
           Tất cả
@@ -109,7 +109,7 @@ export default function LineChart({ data }) {//data la du lieu truyen component 
           7 ngày
         </Button>
       </ButtonGroup>
-      <HighchartsReact highcharts={Highcharts} options={options} />
+      <HighchartsReact highcharts={Highcharts} options={options} />{/**Highcharts dc import o phia tren HighchartsReact de dung highchart trong react */}
     </>
   );
 }
